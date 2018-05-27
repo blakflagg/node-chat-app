@@ -7,7 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Node Chat App</title>
 </head>
+
 <body>
   <p>Welcome to the chat app</p>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();                    //intiates request from client to the server
+    socket.on('connect',() => {           //built-in event occurs when a connection is made to the server
+      console.log('connected to server'); 
+    });
+
+    socket.on('disconnect', () => {       //built-in event occurs when server connection is lost
+      console.log("Disconnected from server");
+    });
+  </script>
 </body>
+
 </html>
