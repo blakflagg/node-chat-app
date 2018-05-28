@@ -5,7 +5,7 @@ const socketIO = require('socket.io');
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 
 
 const express = require('express');
@@ -27,6 +27,10 @@ io.on('connection',(socket) => {      //event occurs when a client connects to t
     io.emit('newMessage',generateMessage(message.from,message.text));
     callback();
   })
+
+  socket.on('createLocationMessage',(coords) => {
+    io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude))
+  });
   socket.on('disconnect',() => {      //event occurs when client disconnects
     console.log('User was disconnected');
   });
